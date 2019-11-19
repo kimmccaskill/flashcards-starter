@@ -12,8 +12,7 @@ class Round {
 
   takeTurn() {
     this.turns++;
-    this.deck.shift();
-    this.currentCard = deck.cards[this.turns];
+    this.currentCard = this.deck[this.turns];
   }
 }
 
