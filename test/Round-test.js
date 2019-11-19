@@ -27,19 +27,7 @@ describe('Round', function() {
     const deck = new Deck([card1, card2, card3]);
     const round = new Round(deck);
 
-    expect(round.returnCurrentCard()).to.deep.equal({ id: 1, question: 'What is Robbie\'s favorite animal', answers: ['sea otter', 'pug', 'capybara'], correctAnswer: 'sea otter'
-    });
-  });
-
-  it('should be able to check what turn it is', function() {
-    const card1 = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
-    const card2 = new Card(14, 'What organ is Khalid missing?', ['spleen', 'appendix', 'gallbladder'], 'gallbladder');
-    const card3 = new Card(12, 'What is Travis\'s middle name?', ['Lex', 'William', 'Fitzgerald'], 'Fitzgerald');
-
-    const deck = new Deck([card1, card2, card3]);
-    const round = new Round(deck);
-
-    expect(round.turns).to.deep.equal(0);
+    expect(round.returnCurrentCard()).to.deep.equal(card1);
   });
 
   it('should be able to check what turn it is', function() {
@@ -64,5 +52,18 @@ describe('Round', function() {
     round.takeTurn();
 
     expect(round.turns).to.deep.equal(1);
+  });
+
+  it('should be able to change current card on new turn', function() {
+    const card1 = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
+    const card2 = new Card(14, 'What organ is Khalid missing?', ['spleen', 'appendix', 'gallbladder'], 'gallbladder');
+    const card3 = new Card(12, 'What is Travis\'s middle name?', ['Lex', 'William', 'Fitzgerald'], 'Fitzgerald');
+
+    const deck = new Deck([card1, card2, card3]);
+    const round = new Round(deck);
+
+    round.takeTurn();
+
+    expect(round.currentCard).to.deep.equal(card2);
   });
 });
