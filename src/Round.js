@@ -9,6 +9,11 @@ class Round {
   returnCurrentCard() {
     return this.currentCard;
   }
+
+  takeTurn() {
+    this.turns++;
+    // deck.cards.shift();
+  }
 }
 
 module.exports = Round;
