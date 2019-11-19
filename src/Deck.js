@@ -1,5 +1,9 @@
 class Deck {
   constructor() {
+
+  }
+
+  countCards() {
     
   }
 }
