@@ -3,6 +3,7 @@ class Round {
     this.currentCard = deck.cards[0];
     this.deck = deck.cards;
     this.turns = 0;
+    this.incorrectGuesses = [];
   }
 
   returnCurrentCard() {
