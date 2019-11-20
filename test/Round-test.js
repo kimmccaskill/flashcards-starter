@@ -70,7 +70,7 @@ describe('Round', function() {
     expect(round.currentCard).to.deep.equal(card2);
   });
 
-  it('should be able to evaluate guess', function() {
+  it('should be able to evaluate correct guess', function() {
     const card1 = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
     const card2 = new Card(14, 'What organ is Khalid missing?', ['spleen', 'appendix', 'gallbladder'], 'gallbladder');
     const card3 = new Card(12, 'What is Travis\'s middle name?', ['Lex', 'William', 'Fitzgerald'], 'Fitzgerald');
@@ -79,9 +79,54 @@ describe('Round', function() {
     const deck = new Deck([card1, card2, card3]);
     const round = new Round(deck);
 
+    expect(round.takeTurn(turn)).to.equal('Correct!');
+  });
 
-    turn.evaluateGuess();
+  it('should be able to evaluate incorrect guess', function() {
+    const card1 = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
+    const card2 = new Card(14, 'What organ is Khalid missing?', ['spleen', 'appendix', 'gallbladder'], 'gallbladder');
+    const card3 = new Card(12, 'What is Travis\'s middle name?', ['Lex', 'William', 'Fitzgerald'], 'Fitzgerald');
 
-    expect(round.takeTurn(turn)).equal('Correct!');
+    const turn =  new Turn('spleen', card2);
+    const deck = new Deck([card1, card2, card3]);
+    const round = new Round(deck);
+
+    expect(round.takeTurn(turn)).to.equal('Incorrect!');
+  });
+
+  it('should add incorrect guess to list', function() {
+    const card1 = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
+    const card2 = new Card(14, 'What organ is Khalid missing?', ['spleen', 'appendix', 'gallbladder'], 'gallbladder');
+    const card3 = new Card(12, 'What is Travis\'s middle name?', ['Lex', 'William', 'Fitzgerald'], 'Fitzgerald');
+
+    const turn =  new Turn('spleen', card2);
+    const deck = new Deck([card1, card2, card3]);
+    const round = new Round(deck);
+
+    round.takeTurn(turn);
+
+    expect(round.incorrectGuesses).to.deep.equal([14]);
+  });
+
+  it('should calculate percent correct', function() {
+    const card1 = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
+    const card2 = new Card(14, 'What organ is Khalid missing?', ['spleen', 'appendix', 'gallbladder'], 'gallbladder');
+    const card3 = new Card(12, 'What is Travis\'s middle name?', ['Lex', 'William', 'Fitzgerald'], 'Fitzgerald');
+
+    let turn =  new Turn('sea otter', card1);
+    const deck = new Deck([card1, card2, card3]);
+    const round = new Round(deck);
+
+    round.takeTurn(turn);
+
+    turn =  new Turn('spleen', card2);
+
+    round.takeTurn(turn);
+
+    turn =  new Turn('Fitzgerald', card3);
+
+    round.takeTurn(turn);
+
+    expect(round.calculatePercentCorrect()).to.deep.equal(66.67);
   });
 });
