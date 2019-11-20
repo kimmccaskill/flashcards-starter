@@ -10,9 +10,10 @@ class Round {
     return this.currentCard;
   }
 
-  takeTurn() {
+  takeTurn(turn) {
     this.turns++;
     this.currentCard = this.deck[this.turns];
+    return turn.giveFeedback()
   }
 }
 

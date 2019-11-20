@@ -6,6 +6,7 @@ const Deck = require('../src/Deck');
 const Turn = require('../src/Turn');
 const Card = require('../src/Card');
 
+
 describe('Round', function() {
 
   it('should be able to check deck', function() {
@@ -46,10 +47,11 @@ describe('Round', function() {
     const card2 = new Card(14, 'What organ is Khalid missing?', ['spleen', 'appendix', 'gallbladder'], 'gallbladder');
     const card3 = new Card(12, 'What is Travis\'s middle name?', ['Lex', 'William', 'Fitzgerald'], 'Fitzgerald');
 
+    const turn =  new Turn('sea otter', card1);
     const deck = new Deck([card1, card2, card3]);
     const round = new Round(deck);
 
-    round.takeTurn();
+    round.takeTurn(turn);
 
     expect(round.turns).to.deep.equal(1);
   });
@@ -59,11 +61,27 @@ describe('Round', function() {
     const card2 = new Card(14, 'What organ is Khalid missing?', ['spleen', 'appendix', 'gallbladder'], 'gallbladder');
     const card3 = new Card(12, 'What is Travis\'s middle name?', ['Lex', 'William', 'Fitzgerald'], 'Fitzgerald');
 
+    const turn =  new Turn('sea otter', card1);
     const deck = new Deck([card1, card2, card3]);
     const round = new Round(deck);
 
-    round.takeTurn();
+    round.takeTurn(turn);
 
     expect(round.currentCard).to.deep.equal(card2);
+  });
+
+  it('should be able to evaluate guess', function() {
+    const card1 = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
+    const card2 = new Card(14, 'What organ is Khalid missing?', ['spleen', 'appendix', 'gallbladder'], 'gallbladder');
+    const card3 = new Card(12, 'What is Travis\'s middle name?', ['Lex', 'William', 'Fitzgerald'], 'Fitzgerald');
+
+    const turn =  new Turn('sea otter', card1);
+    const deck = new Deck([card1, card2, card3]);
+    const round = new Round(deck);
+
+
+    turn.evaluateGuess();
+
+    expect(round.takeTurn(turn)).equal('Correct!');
   });
 });
