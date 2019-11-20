@@ -124,9 +124,9 @@ describe('Round', function() {
     round.takeTurn(turn);
 
     turn =  new Turn('Fitzgerald', card3);
-
+    
     round.takeTurn(turn);
 
-    expect(round.calculatePercentCorrect()).to.deep.equal(66.67);
+    expect(round.calculatePercentCorrect()).to.deep.equal(67);
   });
 });

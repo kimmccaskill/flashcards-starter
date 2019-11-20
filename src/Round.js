@@ -21,12 +21,10 @@ class Round {
       this.correctGuesses++;
     }
     return turn.giveFeedback();
-
   }
 
   calculatePercentCorrect() {
-    return +((this.correctGuesses/this.turns)*100).toFixed(2);
-    // console.log(this.correctGuesses)
+    return +((this.correctGuesses/this.turns)*100).toFixed(0);
   }
 
   endRound() {
