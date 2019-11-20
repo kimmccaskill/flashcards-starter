@@ -51,7 +51,7 @@ describe('Round', function() {
     const deck = new Deck([card1, card2, card3]);
     const round = new Round(deck);
 
-    round.takeTurn(turn);
+    round.takeTurn('sea otter');
 
     expect(round.turns).to.deep.equal(1);
   });
@@ -65,7 +65,7 @@ describe('Round', function() {
     const deck = new Deck([card1, card2, card3]);
     const round = new Round(deck);
 
-    round.takeTurn(turn);
+    round.takeTurn('sea otter');
 
     expect(round.currentCard).to.deep.equal(card2);
   });
@@ -79,7 +79,8 @@ describe('Round', function() {
     const deck = new Deck([card1, card2, card3]);
     const round = new Round(deck);
 
-    expect(round.takeTurn(turn)).to.equal('Correct!');
+    turn.evaluateGuess();
+    expect(turn.result).to.equal(true);
   });
 
   it('should be able to evaluate incorrect guess', function() {
@@ -91,7 +92,9 @@ describe('Round', function() {
     const deck = new Deck([card1, card2, card3]);
     const round = new Round(deck);
 
-    expect(round.takeTurn(turn)).to.equal('Incorrect!');
+    turn.evaluateGuess();
+    expect(turn.result).to.equal(false);
+
   });
 
   it('should add incorrect guess to list', function() {
@@ -99,13 +102,12 @@ describe('Round', function() {
     const card2 = new Card(14, 'What organ is Khalid missing?', ['spleen', 'appendix', 'gallbladder'], 'gallbladder');
     const card3 = new Card(12, 'What is Travis\'s middle name?', ['Lex', 'William', 'Fitzgerald'], 'Fitzgerald');
 
-    const turn =  new Turn('spleen', card2);
     const deck = new Deck([card1, card2, card3]);
     const round = new Round(deck);
 
-    round.takeTurn(turn);
+    round.takeTurn('pug');
 
-    expect(round.incorrectGuesses).to.deep.equal([14]);
+    expect(round.incorrectGuesses).to.deep.equal([1]);
   });
 
   it('should calculate percent correct', function() {
@@ -113,19 +115,12 @@ describe('Round', function() {
     const card2 = new Card(14, 'What organ is Khalid missing?', ['spleen', 'appendix', 'gallbladder'], 'gallbladder');
     const card3 = new Card(12, 'What is Travis\'s middle name?', ['Lex', 'William', 'Fitzgerald'], 'Fitzgerald');
 
-    let turn =  new Turn('sea otter', card1);
     const deck = new Deck([card1, card2, card3]);
     const round = new Round(deck);
 
-    round.takeTurn(turn);
-
-    turn =  new Turn('spleen', card2);
-
-    round.takeTurn(turn);
-
-    turn =  new Turn('Fitzgerald', card3);
-    
-    round.takeTurn(turn);
+    round.takeTurn('sea otter');
+    round.takeTurn('spleen');
+    round.takeTurn('Fitzgerald');
 
     expect(round.calculatePercentCorrect()).to.deep.equal(67);
   });
