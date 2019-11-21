@@ -36,7 +36,7 @@ class Round {
     return +((this.correctGuesses/this.turns)*100).toFixed(0);
   }
 
-  endRound(game) {
+  endRound() {
     console.log(`** Round over! ** You answered ${this.calculatePercentCorrect()}% of the questions correctly!`)
     this.timeResult();
     process.exit();

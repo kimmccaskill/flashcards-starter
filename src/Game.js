@@ -8,7 +8,7 @@ const Card = require('../src/Card');
 
 class Game {
   constructor() {
-    this.currentRound = 1;
+    this.currentRound = 0;
   }
 
   printMessage(deck, round) {
