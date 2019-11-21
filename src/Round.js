@@ -1,5 +1,4 @@
 const Turn = require('../src/Turn');
-const Game = require('../src/Game')
 
 let interval;
 let minutes = 0;
@@ -21,10 +20,10 @@ class Round {
   takeTurn(guess) {
     const turn = new Turn(guess, this.returnCurrentCard());
     turn.evaluateGuess();
-    if(!turn.result) {
+    if (!turn.result) {
       this.incorrectGuesses.push(this.currentCard.id)
     }
-    if(turn.result) {
+    if (turn.result) {
       this.correctGuesses++;
     }
     this.turns++;
@@ -33,7 +32,7 @@ class Round {
   }
 
   calculatePercentCorrect() {
-    return +((this.correctGuesses/this.turns)*100).toFixed(0);
+    return +((this.correctGuesses / this.turns) * 100).toFixed(0);
   }
 
   endRound() {
@@ -43,23 +42,23 @@ class Round {
   }
 
   timer() {
-      clearInterval(interval);
-      interval = setInterval(this.startTimer, 1000);
-    }
+    clearInterval(interval);
+    interval = setInterval(this.startTimer, 1000);
+  }
 
   startTimer() {
     seconds++;
-    if(seconds > 59) {
+    if (seconds > 59) {
       seconds = 0;
       minutes++;
     }
   }
 
   timeResult() {
-    if(minutes === 0) {
-    console.log(`** It took you ${seconds} seconds! **`);
+    if (minutes === 0) {
+      console.log(`** It took you ${seconds} seconds! **`);
     } else {
-    console.log(`** It took you ${minutes} min and ${seconds} seconds! **`);
+      console.log(`** It took you ${minutes} min and ${seconds} seconds! **`);
     }
   }
 }
