@@ -36,11 +36,10 @@ class Round {
     return +((this.correctGuesses/this.turns)*100).toFixed(0);
   }
 
-  endRound() {
+  endRound(game) {
     console.log(`** Round over! ** You answered ${this.calculatePercentCorrect()}% of the questions correctly!`)
     this.timeResult();
     process.exit();
-    // return;
   }
 
   timer() {
@@ -60,9 +59,9 @@ class Round {
     if(minutes === 0) {
     console.log(`** It took you ${seconds} seconds! **`);
     } else {
-  console.log(`** It took you ${minutes} min and ${seconds} seconds! **`);
+    console.log(`** It took you ${minutes} min and ${seconds} seconds! **`);
     }
-}
+  }
 }
 
 module.exports = Round;

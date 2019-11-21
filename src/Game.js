@@ -6,10 +6,6 @@ const Round = require('../src/Round')
 const Deck = require('../src/Deck');
 const Card = require('../src/Card');
 
-
-
-
-
 class Game {
   constructor() {
     this.currentRound = 0;
