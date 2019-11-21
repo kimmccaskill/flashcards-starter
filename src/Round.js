@@ -1,6 +1,9 @@
 const Turn = require('../src/Turn');
 const Game = require('../src/Game')
 
+let interval;
+let minutes = 0;
+let seconds = 0;
 
 class Round {
   constructor(deck) {
@@ -35,9 +38,31 @@ class Round {
 
   endRound() {
     console.log(`** Round over! ** You answered ${this.calculatePercentCorrect()}% of the questions correctly!`)
+    this.timeResult();
     process.exit();
     // return;
   }
+
+  timer() {
+      clearInterval(interval);
+      interval = setInterval(this.startTimer, 1000);
+    }
+
+  startTimer() {
+    seconds++;
+    if(seconds > 59) {
+      seconds = 0;
+      minutes++;
+    }
+  }
+
+  timeResult() {
+    if(minutes === 0) {
+    console.log(`** It took you ${seconds} seconds! **`);
+    } else {
+  console.log(`** It took you ${minutes} min and ${seconds} seconds! **`);
+    }
+}
 }
 
 module.exports = Round;
