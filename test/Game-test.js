@@ -1,9 +1,14 @@
 const chai = require('chai');
 const expect = chai.expect;
 
-describe('Game', function() {
+const Game = require('../src/Game');
 
+describe('Game', function() {
+  let game;
   it('should keep track of current round', () => {
-    expect().to.equal();
-  })
-}
+    game = new Game();
+    game.start();
+
+    expect(game.currentRound).to.equal(1);
+  });
+});
