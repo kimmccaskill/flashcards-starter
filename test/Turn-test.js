@@ -5,43 +5,58 @@ const Turn = require('../src/Turn');
 const Card = require('../src/Card');
 
 describe('Turn', function() {
+  let card1, turn;
+  beforeEach(() => {
+    card1 = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
+
+  });
 
   it('should be a function', function() {
-    const card = new Turn();
     expect(Turn).to.be.a('function');
   });
 
   it('should be an instance of Turn', function() {
-    const turn = new Turn();
+    turn = new Turn('sea otter', card1);
     expect(turn).to.be.an.instanceof(Turn);
   });
 
   it('should return guess', function() {
-    const card = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
-    const turn = new Turn('pug', card);
+    turn = new Turn('sea otter', card1);
 
-    expect(turn.returnGuess()).to.deep.equal('pug');
+    expect(turn.returnGuess()).to.deep.equal('sea otter');
   });
 
   it('should return card', function() {
-    const card = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
-    const turn = new Turn('pug', card);
+    expect(turn.returnCard()).to.deep.equal(card1);
+  });
 
-    expect(turn.returnCard()).to.deep.equal({ id: 1, question: 'What is Robbie\'s favorite animal', answers: ['sea otter', 'pug', 'capybara'], correctAnswer: 'sea otter'
+  describe('evaluateGuess', function() {
+    it('should evaluate guess to be true', function() {
+      turn = new Turn('sea otter', card1);
+
+      expect(turn.evaluateGuess()).to.deep.equal(true);
+    });
+
+    it('should evaluate guess to be false', function() {
+      turn = new Turn('pug', card1);
+
+      expect(turn.evaluateGuess()).to.deep.equal(false);
     });
   });
 
-  it('should evaluate guess', function() {
-    const card = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
-    const turn = new Turn('pug', card);
+  describe('giveFeedback', function() {
+    it('should give feedback for right answer', function() {
+      turn = new Turn('sea otter', card1);
+      turn.evaluateGuess()
 
-    expect(turn.evaluateGuess()).to.deep.equal(false);
-  });
+      expect(turn.giveFeedback()).to.deep.equal('Correct!');
+    });
 
-  it('should give feedback', function() {
-    const card = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
-    const turn = new Turn('pug', card);
+    it('should give feedback for wrong answer', function() {
+      turn = new Turn('pug', card1);
+      turn.evaluateGuess()
 
-    expect(turn.giveFeedback()).to.deep.equal('Incorrect!');
+      expect(turn.giveFeedback()).to.deep.equal('Incorrect!');
+    });
   });
 });
