@@ -1,6 +1,6 @@
 const http = require('http');
 const Game = require('../flashcards-starter/src/Game')
-const game = new Game();
+let game = new Game();
 
 let app = http.createServer();
 

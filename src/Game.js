@@ -27,6 +27,8 @@ class Game {
 
     this.printMessage(deck, round);
     this.printQuestion(round)
+    this.currentRound++
+
   }
 }
 
